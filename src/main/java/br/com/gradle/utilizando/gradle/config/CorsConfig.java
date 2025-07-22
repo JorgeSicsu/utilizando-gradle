@@ -14,7 +14,7 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); // obrigatório para cookies/autenticação
-        config.setAllowedOrigins(List.of("https://utilizando-gradle-production.up.railway.app","http://localhost:8080"));
+        config.setAllowedOrigins(List.of("https://utilizando-gradle-production.up.railway.app"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setExposedHeaders(List.of("*"));
