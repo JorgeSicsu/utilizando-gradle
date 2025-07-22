@@ -6,17 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HttpsRedirectConfig {
-    @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer() {
-        return container -> container.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
-    }
 
-    private Connector httpToHttpsRedirectConnector() {
-        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
-        connector.setScheme("http");
-        connector.setPort(8080); // porta de entrada HTTP
-        connector.setSecure(false);
-        connector.setRedirectPort(443); // redireciona para HTTPS
-        return connector;
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainerCustomizer() {
+        return server -> server.addConnectorCustomizers(connector -> {
+            connector.setScheme("http");
+            connector.setSecure(false);
+            connector.setRedirectPort(443);
+        });
     }
 }
